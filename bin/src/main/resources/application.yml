@@ -1,7 +1,7 @@
 db:
-  driver: com.mysql.cj.jdbc.Driver
-  password: admin
-  url: jdbc:mysql://localhost:3306/healthify-dev
+  driver: com.mysql.jdbc.Driver
+  password: 12345
+  url: jdbc:mysql://localhost:3306/healthify-dec
   username: root
 entitymanager:
   packagesToScan: com
