@@ -1,0 +1,37 @@
+db:
+  driver: com.mysql.cj.jdbc.Driver
+  password: admin
+  url: jdbc:mysql://localhost:3306/healthify-dev
+  username: root
+entitymanager:
+  packagesToScan: com
+hibernate:
+  dialect: org.hibernate.dialect.MySQL8Dialect
+  format_sql: false
+  hbm2ddl:
+    auto: update
+  show_sql: true
+logging:
+  file:
+    name: HMSAppLogs/hms.log
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss} - %msg%n'
+    file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n'
+server:
+  port: 8090
+spring:
+  application:
+    name: HMS-SERVICE
+  mail:
+    host: smtp.gmail.com
+    password: ivmarmftryaeuzji
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    username: attendance2715@gmail.com
+user:
+  roles: ROLE_ADMIN,ROLE_DOCTOR,ROLE_PHARMACIST,ROLE_RECEPTIONIST
