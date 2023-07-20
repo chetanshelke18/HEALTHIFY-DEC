@@ -173,12 +173,11 @@ public class AppointmentController {
 	@GetMapping(value = "/get-all-appointments")
 	public ResponseEntity<List<Appointment>> getAllAppointments() {
 		List<Appointment> appointments = service.getAllAppointments();
-		if (appointments != null) {
-			LOG.info("Appointment Fetched !");
-			return new ResponseEntity<List<Appointment>>(appointments, HttpStatus.OK);
+		if (appointments.isEmpty()) {
+			return new ResponseEntity<List<Appointment>>(appointments, HttpStatus.NO_CONTENT);
 		} else {
-			throw new ResourceNotFoundException("Appointment Not Exists");
-		}
+			return new ResponseEntity<List<Appointment>>(appointments, HttpStatus.OK);	
+	    }
 	}
 
 

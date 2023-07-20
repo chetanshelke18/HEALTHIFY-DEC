@@ -108,8 +108,7 @@ public class AppointmentServiceImp implements AppointmentService {
 
 	@Override
 	public List<Appointment> getAllAppointments() {
-		List<Appointment> allAppointments = appointmentDao.getAllAppointments();
-		return allAppointments;
+		return appointmentDao.getAllAppointments();
 	}
 
 	@Override

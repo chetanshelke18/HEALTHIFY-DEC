@@ -244,12 +244,13 @@ public class AppointmentDaoIMPL implements AppointmentDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Appointment> getAllAppointments() {
-		Session session = sf.getCurrentSession();
+		Session session = null;
 		List<Appointment> list=null;
 		try {
-			 @SuppressWarnings("deprecation")
+			session =sf.getCurrentSession();
 			Criteria criteria = session.createCriteria(Appointment.class);
 			list= criteria.list();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
