@@ -109,12 +109,12 @@ public class AdminController {
 
 	@GetMapping(value = "/get-total-count-of user")
 	public ResponseEntity<Long> getUsersTotalCounts() {
-		Long count = userService.getUsersTotalCounts();
-		if (count > 0) {
-			return new ResponseEntity<Long>(count, HttpStatus.OK);
+		long rowCount = userService.getUsersTotalCounts();
+		if (rowCount!= 0) {
+			return new ResponseEntity<Long>(rowCount, HttpStatus.OK);
 		} else {
-			throw new ResourceNotFoundException("User Not Exists");
-		}
+			return new ResponseEntity<Long>(rowCount, HttpStatus.NOT_FOUND);		
+			}
 	}
 
 	@GetMapping(value = "/get-total-count-of-user-by-type/{type}")
@@ -129,11 +129,11 @@ public class AdminController {
 
 	@GetMapping(value = "/get-total-count-of-user-by-date-and-type//{date}/{type}")
 	public ResponseEntity<Long> getUserCountByDateAndType(@PathVariable Date date, @PathVariable String type) {
-		Long count = userService.getUserCountByDateAndType(date, type);
-		if (count > 0) {
-			return new ResponseEntity<Long>(count, HttpStatus.OK);
+		long rowCount = userService.getUserCountByDateAndType(date, type);
+		if (rowCount!= 0) {
+			return new ResponseEntity<Long>(rowCount, HttpStatus.OK);
 		} else {
-			throw new ResourceNotFoundException("User Not Exists Please Check Date & Type");
+			throw new ResourceNotFoundException("resource not found for this date and type");
 		}
 	}
 

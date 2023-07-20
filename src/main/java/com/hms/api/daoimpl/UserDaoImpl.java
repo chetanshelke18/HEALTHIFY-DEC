@@ -154,21 +154,21 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public Long getUsersTotalCounts() {
-		long count = 0;
+		
+		Session session = sf.getCurrentSession();
+		long rowcount = 0;
 		try {
-			Session session = sf.getCurrentSession();
-			@SuppressWarnings("deprecation")
-			Criteria criteria = session.createCriteria(User.class);
-			criteria.setProjection(Projections.rowCount());
-			List list = criteria.list();
-			if (!list.isEmpty()) {
-				count = (long) list.get(0);
+			
+			Criteria criteria = session.createCriteria(User.class).setProjection(Projections.rowCount());
+			List<Long> rowList = criteria.list();
+			if (!rowList.isEmpty()) {
+				rowcount = rowList.get(0);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return count;
+		return rowcount;
 	}
 
 	@Override
@@ -192,23 +192,24 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public Long getUserCountByDateAndType(Date registeredDate, String type) {
-		long count = 0;
+		
+		Session session = sf.getCurrentSession();
+		long rowCount = 0;
 		try {
-			Session session = sf.getCurrentSession();
-			@SuppressWarnings("deprecation")
+			
 			Criteria criteria = session.createCriteria(User.class);
-			SimpleExpression date = Restrictions.eq("createdDate", registeredDate);
-			SimpleExpression userType = Restrictions.eq("type", type);
-			criteria.add(Restrictions.and(date, userType));
+			criteria.add(Restrictions.eq("type", type));
+			criteria.add(Restrictions.eq("createdDate", registeredDate));
 			criteria.setProjection(Projections.rowCount());
-			List list = criteria.list();
-			if (!list.isEmpty()) {
-				count = (long) list.get(0);
+			
+			List<Long>rowList = criteria.list();
+			if (!rowList.isEmpty()) {
+				rowCount = rowList.get(0);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return count;
+		return rowCount;
 	}
 
 	@Override
