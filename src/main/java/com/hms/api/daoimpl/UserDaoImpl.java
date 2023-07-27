@@ -214,17 +214,19 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<User> getUserByFirstName(String firstName) {
-		List<User> list=null;
+		List<User> userList=null;
+		Session session =null;
 		try {
-			Session session = sf.getCurrentSession();
-			@SuppressWarnings("deprecation")
+			session = sf.getCurrentSession();
+			
 			Criteria criteria = session.createCriteria(User.class);
 			criteria.add(Restrictions.eq("firstname", firstName));
-			list = criteria.list();
+			userList = criteria.list();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return list;
+		System.out.println(userList);
+		return userList;
 	}
 
 	@Override
