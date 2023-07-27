@@ -3,6 +3,8 @@ package com.hms.api.controller;
 import java.sql.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,17 +37,16 @@ public class AdminController {
 
 	@PostMapping("/add-user")
 	
-	public ResponseEntity<Boolean> registerUser(@RequestBody User user) {
+	public ResponseEntity<Boolean> registerUser(@Valid @RequestBody User user) {
 
-		boolean isAdded = userService.addUser(user);
-		if (isAdded) {
-			LOG.info("Added User :" + user);
-			return new ResponseEntity<Boolean>(isAdded, HttpStatus.CREATED);
-		}
+		boolean isRegistered = userService.addUser(user);
+		if (isRegistered) 
+			
+			return ResponseEntity.ok(isRegistered);
 
 		else {
-			LOG.info("User Already Exixts With >ID:" + user.getUsername());
-			throw new ResourceAlreadyExistsException("User Already Exixts With >ID:" + user.getUsername());
+			
+			throw new ResourceAlreadyExistsException("This User name is already in used...");
 		}
 
 	}

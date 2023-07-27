@@ -3,6 +3,8 @@ package com.hms.api.daoimpl;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
@@ -18,6 +20,7 @@ import com.hms.api.dao.UserDao;
 import com.hms.api.entity.Otp;
 import com.hms.api.entity.Role;
 import com.hms.api.entity.User;
+import com.hms.api.exception.ResourceAlreadyExistsException;
 import com.hms.api.security.CustomUserDetail;
 
 @Repository
@@ -34,13 +37,13 @@ public class UserDaoImpl implements UserDao {
 	public boolean addUser(User user) {
 		Session session = sf.getCurrentSession();
 		boolean isAdded = false;
-		System.out.println("dao add user>> " + user);
+		
 		try {
-			User usr = session.get(User.class, user.getUsername());
-			if (usr == null) {
-				session.save(user);
-				isAdded = true;
-			}
+			 session.save(user);
+			 isAdded = true;
+		}catch(PersistenceException pe) {
+			throw new ResourceAlreadyExistsException("User name is already in use...");
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
