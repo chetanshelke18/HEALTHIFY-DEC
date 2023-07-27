@@ -64,14 +64,14 @@ public class AdminController {
 
 	@PutMapping("/update-user")
 	public ResponseEntity<User> updateUser(@RequestBody User user) {
-		User admn = userService.updateUser(user);
-		if (admn != null) {
-			return new ResponseEntity<User>(user, HttpStatus.CREATED);
+		User isUpdated = userService.updateUser(user);
+		if (isUpdated != null) {
+			return new ResponseEntity<User>(user, HttpStatus.OK);
 		}
 
 		else {
-			LOG.info("User Not Found For Update >ID: " + user.getUsername());
-			throw new ResourceNotFoundException("User Not Found For Update >ID:" + user.getUsername());
+			
+			throw new ResourceNotFoundException("User not found with username" + user.getUsername());
 		}
 
 	}
