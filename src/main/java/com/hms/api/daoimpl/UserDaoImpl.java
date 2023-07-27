@@ -89,16 +89,16 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public boolean deleteUserById(String id) {
-		Session session = sf.getCurrentSession();
+		Session session = null;
 		boolean isDeleted = false;
 		try {
-			User user = getUserById(id);
+			session = sf.getCurrentSession();
+			User user = session.get(User.class, id );
 			if (user != null) {
 				session.delete(user);
 				isDeleted = true;
 			}
 		} catch (Exception e) {
-			LOG.info(e.getMessage());
 			e.printStackTrace();
 		}
 		return isDeleted;

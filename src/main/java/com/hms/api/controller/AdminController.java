@@ -52,15 +52,14 @@ public class AdminController {
 
 	@DeleteMapping(value = "/delete-user/{id}")
 	public ResponseEntity<Boolean> deleteUser(@PathVariable String id) {
-		boolean isDeleted = this.userService.deleteUserById(id);
-		if (isDeleted) {
-			LOG.info("User Deleted ID: " + id);
-			return new ResponseEntity<Boolean>(isDeleted, HttpStatus.OK);
-		} else {
-			LOG.info("User Not Found Deleted >ID: " + id);
-			throw new ResourceNotFoundException("User Not Found For Delete >ID: " + id);
+		boolean isDeleted = userService.deleteUserById(id);
+		if (isDeleted)
+			return ResponseEntity.ok(isDeleted);
+		 else 
+			
+			throw new ResourceNotFoundException("User with username " + id+"not found!!");
 		}
-	}
+	
 
 	@PutMapping("/update-user")
 	public ResponseEntity<User> updateUser(@RequestBody User user) {
