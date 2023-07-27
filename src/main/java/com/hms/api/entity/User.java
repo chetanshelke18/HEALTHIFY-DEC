@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,31 +25,39 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class User {
 
 	@Id
+	@NotEmpty
 	@Column(name = "UserName")
 	private String username;
-
+	
+	@NotEmpty
 	@Column(name = "FirstName")
 	private String firstname;
-
+	
+	@NotEmpty
 	@Column(name = "LastName")
 	private String lastname;
 
-	
+	@NotEmpty
 	@Column(name = "EmailId",unique = true)
 	private String emailid;
 
+	@NotEmpty
 	@Column(name = "Password")
 	private String password;
 
+	@NotEmpty
 	@Column(name = "MobileNo",unique = true)
 	private String mobileno;
 
+	@NotEmpty
 	@Column(name = "Street")
 	private String street;
 
+	@NotEmpty
 	@Column(name = "City")
 	private String city;
-
+	
+	@NotEmpty
 	@Column(name = "Pincode")
 	private String pincode;
 
@@ -56,8 +65,9 @@ public class User {
 	private String type;
 
 	@Column(name = "Question")
-	private String Question;
+	private String question;
 
+	@NotEmpty
 	@Column(name = "Answer")
 	private String answer;
 
@@ -91,7 +101,7 @@ public class User {
 		this.city = city;
 		this.pincode = pincode;
 		this.type = type;
-		Question = question;
+		this.question = question;
 		this.answer = answer;
 		this.createdDate = createdDate;
 		this.roles = roles;
@@ -186,11 +196,11 @@ public class User {
 	}
 
 	public String getQuestion() {
-		return Question;
+		return question;
 	}
 
 	public void setQuestion(String question) {
-		Question = question;
+		this.question = question;
 	}
 
 	public String getAnswer() {
@@ -213,7 +223,7 @@ public class User {
 	public String toString() {
 		return "User [username=" + username + ", firstname=" + firstname + ", lastname=" + lastname + ", emailid="
 				+ emailid + ", password=" + password + ", mobileno=" + mobileno + ", street=" + street + ", city="
-				+ city + ", pincode=" + pincode + ", type=" + type + ", Question=" + Question + ", answer=" + answer
+				+ city + ", pincode=" + pincode + ", type=" + type + ", Question=" + question + ", answer=" + answer
 				+ ", createdDate=" + createdDate + ", roles=" + roles + "]";
 	}
 	

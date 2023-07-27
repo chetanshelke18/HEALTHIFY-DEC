@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import com.hms.api.dao.UserDao;
 import com.hms.api.entity.Role;
 import com.hms.api.entity.User;
+import com.hms.api.exception.InvalidCredentialsException;
 import com.hms.api.security.CustomUserDetail;
 import com.hms.api.service.UserService;
 
@@ -39,7 +40,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean addUser(User user) {
-		return false;
+		Date date = Date.valueOf(LocalDate.now());
+		user.setCreatedDate(date);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		return dao.addUser(user);
 	}
 
 	@Override
