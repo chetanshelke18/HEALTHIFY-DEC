@@ -225,7 +225,6 @@ public class UserDaoImpl implements UserDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(userList);
 		return userList;
 	}
 
